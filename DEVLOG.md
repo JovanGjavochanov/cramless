@@ -95,3 +95,17 @@ Quality points = course credits × GPA value. All five of my 5th-semester course
 **Decisions**
 - Netlify instead of GitHub Pages: the SPA fallback is one rule in a committed file (on Pages it needs a `404.html` copy trick), and there are preview deploys for pull requests.
 - The build config lives in `netlify.toml` in the repo, not only in the dashboard, so it's versioned and reviewable.
+
+## 2026-11-23 (late night): Host credits, empty shell
+
+**Hosting**
+- Found out Netlify's free plan is credit-based: 300 credits a month, **15 per production deploy**, so about 20 deploys a month. When they run out, every site on the account is paused. With small, frequent commits that would last about a week. Staying online costs almost nothing; deploys are what cost.
+- Decision: move to **Vercel** (free Hobby plan: deploys don't cost credits, up to 100 a day). Added `vercel.json` with the same build and an `index.html` rewrite for deep links. I haven't imported the project on Vercel yet; its first deploy will be the first real feature.
+- In the meantime I **stopped builds on Netlify**. The current version stays live, so the professor can review that link, but pushes no longer cost credits (270/300 left). I'll switch the README link after the review.
+
+**Shell**
+- Removed the `ng new` welcome page (and `app.html`/`app.css`). The root component is now an inline-template shell: header, one `<main>` with `<router-outlet>`, a footer, and a skip link for keyboard users.
+- Kept it deliberately empty. No nav links or routes until the proposal is approved, because those depend on which features he accepts.
+- Global styles: colour tokens for light and dark mode, and a visible `:focus-visible` outline (accessibility is graded).
+- The generated test checked for "Hello, cramless" and would have broken. I replaced it with 3 tests on the shell: the brand in the header, exactly one `<main>` containing the router outlet, and the skip link pointing at `#main`.
+- Checked in the browser: dark and light mode, phone width, the skip link appears on the first Tab, no console errors.

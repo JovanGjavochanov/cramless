@@ -56,3 +56,32 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Design services around a single responsibility
 - Prefer the `@Service` decorator over `@Injectable({providedIn: 'root'})` for new singleton services (Angular v22+)
 - Use the `inject()` function instead of constructor injection
+
+## Project rules (Cramless)
+
+Cramless is a university project (Internet Programming, UACS 2026). It is graded on
+the process and on my understanding of the code, not only on the result.
+
+### How to work with me
+- Work in small steps: one component, service or feature per request. Do not change files I did not ask about.
+- I must be able to explain every line. Add a short comment on non-obvious logic, and explain your choices when I ask why.
+- Do not add npm packages without asking me first.
+- Do not commit. I review the diff and commit myself, in small commits with messages that say what changed and why.
+- Before saying something is done, run `ng build` and `ng test --watch=false`, and tell me what you did not verify in the browser.
+- Do not delete or rewrite DEVLOG.md entries. I write the log myself.
+
+### Architecture
+- Feature folders under `src/app/<feature>/` (store, pages, routes, components); shared directives and UI in `src/app/shared/`.
+- State lives in services: a private `signal`, a public read-only view (`asReadonly()` / `computed`), and methods that update immutably.
+- The planning algorithm lives in `src/app/planner/` as pure TypeScript functions with no Angular imports, so it can be unit-tested on its own. Every change to it comes with tests.
+- Persistence goes through one storage service, so localStorage can later be swapped for a backend without touching components.
+- Data loaded from storage or files is validated at runtime before use (types are erased; JSON is not checked).
+- Use Signal Forms for forms, `httpResource`/`toSignal` for async data, and route parameters as component inputs (`withComponentInputBinding()`).
+
+### Quality bar
+- Every async operation shows loading, empty and error states. No blank screens, no silent failures.
+- Semantic HTML, labelled form controls, the main flows usable by keyboard. Anything with drag and drop also has a keyboard alternative.
+- Responsive: works on a phone-width screen and on desktop.
+- Tests must test real logic (planner, stores, validators), not only "should create".
+- No `any`, no dead code, no leftover scaffolding.
+- Never put API keys or secrets in the code or in prompts.

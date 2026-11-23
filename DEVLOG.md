@@ -47,3 +47,36 @@ Short entries, written as I go. What I did, what I decided (and what I rejected)
 
 **Open question**
 - I need to check the exact UACS grading scale (points → letter → GPA) before building the GPA calculator.
+
+## 2026-11-23 (late): The UACS grading scale
+
+**Found:** the official table at https://uacs.edu.mk/grading-system
+
+| Letter | Percent | MK grade | GPA |
+|---|---|---|---|
+| A | 96–100 | 10 | 4.00 |
+| A– | 90–95 | 10 | 3.67 |
+| B+ | 87–89 | 9 | 3.33 |
+| B | 83–86 | 9 | 3.00 |
+| B– | 80–82 | 8 | 2.67 |
+| C+ | 77–79 | 8 | 2.33 |
+| C | 73–76 | 7 | 2.00 |
+| C– | 70–72 | 7 | 1.67 |
+| D+ | 67–69 | 6 | 1.33 |
+| D | 63–66 | 6 | 1.00 |
+| D– | 60–62 | 6 | 0.67 |
+| F | 0–59 | 5 | 0.00 |
+
+Quality points = course credits × GPA value. All five of my 5th-semester courses are 6 ECTS.
+
+**Checked against my own transcript on my.uacs** (grades not copied anywhere, only the formulas):
+- QP is the exact product (6 × 3.33 = 19.98). The table on the website rounds it (it shows "20"), so the calculator should not copy the table's QP column.
+- **Surprise:** the GPA that my.uacs shows is the plain average of the course GPA values, not total QP ÷ total credits. It only makes a difference when a course isn't 6 ECTS (Macedonian Language is 2 ECTS), but there the results differ. The policy page suggests credit-weighting.
+- A failed course that was retaken in the make-up session counts only with its new grade. The F attempt drops out of the averages.
+- Percentages are shown as whole numbers, so the final percentage is probably rounded before the letter is assigned. I'm not sure whether it rounds or truncates.
+- The "Grade 5–10" average on the transcript doesn't match a simple average of the mapped MK grades. I couldn't work out how it's calculated, so it's out of scope for now.
+
+**Decisions**
+- The calculator uses this table as a typed constant (`GRADE_SCALE`), with the percent→letter mapping as a pure function and unit tests at every boundary (59/60, 62/63, 95/96, …).
+- **Default GPA mode is the one my.uacs shows (plain average)**, because that's the number students see and will compare against. The credit-weighted mode is a setting. Both get tests that reproduce real transcript totals.
+- Before relying on it, I'll ask at the student office (or the professor) which GPA formula is official, and whether final percentages are rounded or truncated.

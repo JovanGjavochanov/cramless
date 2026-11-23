@@ -29,3 +29,21 @@ Short entries, written as I go. What I did, what I decided (and what I rejected)
 **Next**
 - Write the proposal and send it by Nov 27.
 - Write down my real courses and exam dates, to use as the first test data for the planner.
+
+## 2026-11-23 (evening): Proposal and scope
+
+**Worked on**
+- Collected the real data for the proposal: my 5 courses, the timetable and the grading weights from my.uacs, topic lists from the Moodle course pages, and the finals week (Jan 18–25, 2027), reading week and holidays from the academic calendar.
+- Wrote `PROPOSAL.md`.
+
+**Decisions**
+- I came up with a lot of extra feature ideas: phone reminders, a GPA / "what grade do I need" calculator, projects with deadlines, a readiness traffic light, generated practice questions, a relax zone with games unlocked by a study timer, a music player. I sorted them into must / nice / later, because the guidelines warn about projects that are too big for the timeline, and the grade depends on one hard part I can explain.
+- The GPA calculator and the readiness colours went into **must have**. They're pure logic built on real grading weights, so they're testable and actually useful.
+- **Phone reminders:** start with a Google Calendar `.ics` export, because Google Calendar already notifies the phone. A Telegram/Discord bot needs a server (a scheduled job plus a secret bot token), so it moved to later.
+- **AI-generated questions:** later. They'd need a server-side proxy, because an API key in frontend code is public (Lecture 05). Self-written flashcards come first.
+- **Wordle / Krillion / -dle games:** these sites block being embedded in an iframe, so they'll be styled launch cards that open in a new tab. Minesweeper and the cipher puzzles I build myself.
+- **Music:** YouTube/Spotify embeds first. Full Spotify login needs OAuth, a registered app and Premium, so that's a stretch goal.
+- I won't put real grades in the repo (it's public). The preset only has course names, the timetable and the grading weights, which are the same for everyone in my year.
+
+**Open question**
+- I need to check the exact UACS grading scale (points → letter → GPA) before building the GPA calculator.

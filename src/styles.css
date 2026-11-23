@@ -1,1 +1,41 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global styles: colour tokens and base element styles shared by every component. */
+
+:root {
+  color-scheme: light dark;
+  --bg: #f7f7f8;
+  --surface: #ffffff;
+  --text: #1c1c21;
+  --text-muted: #5b5b66;
+  --border: #dcdce2;
+  --focus: #2457d6;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #131317;
+    --surface: #1d1d23;
+    --text: #ececf1;
+    --text-muted: #a3a3ad;
+    --border: #33333d;
+    --focus: #7aa2ff;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.5;
+  background: var(--bg);
+  color: var(--text);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}

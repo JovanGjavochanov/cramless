@@ -80,3 +80,18 @@ Quality points = course credits × GPA value. All five of my 5th-semester course
 - The calculator uses this table as a typed constant (`GRADE_SCALE`), with the percent→letter mapping as a pure function and unit tests at every boundary (59/60, 62/63, 95/96, …).
 - **Default GPA mode is the one my.uacs shows (plain average)**, because that's the number students see and will compare against. The credit-weighted mode is a setting. Both get tests that reproduce real transcript totals.
 - Before relying on it, I'll ask at the student office (or the professor) which GPA formula is official, and whether final percentages are rounded or truncated.
+
+## 2026-11-23 (night): Deployed early
+
+**Worked on**
+- Added `netlify.toml` (build command, publish folder `dist/cramless/browser`, Node 24, and a `/* → /index.html` rewrite so deep links don't 404). Connected the repo on Netlify; every push to `main` now deploys.
+- Live at https://cramless-uacs.netlify.app. Checked with curl: `/`, `/courses/3` and a made-up path all return the app (200), and `favicon.ico` still comes back as an image, so real files aren't swallowed by the rewrite.
+
+**Got stuck / surprises**
+- `cramless.netlify.app` was already taken, so the site is `cramless-uacs`.
+- The first deploy was **private** by default (401, Netlify login page). New Netlify projects start team-only now. I switched the visibility to Public in the project settings, because the guidelines say the app must be publicly reachable. Lesson: check the live URL from outside the account (curl or a private window), not only in the dashboard preview.
+- Netlify auto-detected Angular and added `@netlify/angular-runtime`. The app has no SSR, so it's not needed. I'll check whether it can be removed without breaking the build.
+
+**Decisions**
+- Netlify instead of GitHub Pages: the SPA fallback is one rule in a committed file (on Pages it needs a `404.html` copy trick), and there are preview deploys for pull requests.
+- The build config lives in `netlify.toml` in the repo, not only in the dashboard, so it's versioned and reviewable.

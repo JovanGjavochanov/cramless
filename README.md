@@ -1,59 +1,29 @@
 # Cramless
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.3.0.
+A study planner for the exam session. It turns your courses, deadlines and free time into a day-by-day study plan.
+Internet Programming project, UACS 2026. See [PROPOSAL.md](PROPOSAL.md) for the plan and [DEVLOG.md](DEVLOG.md) for how it's being built.
 
-## Development server
+**Live app:** https://cramless-uacs.netlify.app
 
-To start a local development server, run:
+> Work in progress: right now this is the bare Angular scaffold.
 
-```bash
-ng serve
-```
+## Running locally
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Requires Node.js 24 and npm.
 
 ```bash
-ng generate component component-name
+npm install
+npm start                   # dev server at http://localhost:4200
+npm test -- --watch=false   # unit tests (Vitest), single run
+npm run build               # production build in dist/cramless/browser
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Deployment
 
-```bash
-ng generate --help
-```
+Netlify builds and deploys every push to `main`, using the settings in [netlify.toml](netlify.toml) (Node 24, `npm run build`, publishing `dist/cramless/browser`).
+The `/* → /index.html` rewrite in that file makes deep links and page refreshes work with the Angular router instead of returning a 404.
 
-## Building
+## AI usage
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+To be completed as the project goes. So far:
+- **Claude Code** (agent): read the course materials with me, helped brainstorm and scope the project idea, ran `ng new`, wrote the first drafts of the proposal and DEVLOG entries (which I reviewed and edited), and set up the Netlify config. Project rules for the agent are in [CLAUDE.md](CLAUDE.md) / [AGENTS.md](AGENTS.md).

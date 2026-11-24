@@ -109,3 +109,14 @@ Quality points = course credits × GPA value. All five of my 5th-semester course
 - Global styles: colour tokens for light and dark mode, and a visible `:focus-visible` outline (accessibility is graded).
 - The generated test checked for "Hello, cramless" and would have broken. I replaced it with 3 tests on the shell: the brand in the header, exactly one `<main>` containing the router outlet, and the skip link pointing at `#main`.
 - Checked in the browser: dark and light mode, phone width, the skip link appears on the first Tab, no console errors.
+
+## 2026-11-24: Switched hosting to Vercel
+
+**Worked on**
+- The professor will look at the proposal on Friday, so I'm not waiting with the host switch. Imported the repo on Vercel; it read `vercel.json` (preset "set by vercel.json") and the first production deploy took 23 seconds.
+- `cramless.vercel.app` was taken by someone else, and Vercel gave the project `cramless-sigma.vercel.app`. I renamed it to **`cramless-uacs.vercel.app`** so it matches the old Netlify name; the old address now redirects (307).
+- Checked from outside the account with curl: `/`, `/courses/3` and a made-up path all return the app (200), `favicon.ico` comes back as an image, and the served JS bundle contains the new shell. Unlike Netlify, the Vercel production URL was public straight away.
+- README now points to the Vercel URL. I deleted `netlify.toml`, since nothing reads it any more (no dead config). The Netlify site still serves its last deploy, but its builds are stopped, so it costs nothing and won't change.
+
+**Lesson**
+- A "free" host can have a deploy budget that doesn't fit a commit-often workflow. Next time I'll check the pricing model before connecting the repo, not after two deploys.
